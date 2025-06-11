@@ -145,6 +145,21 @@ const GroupsPage: React.FC = () => {
     }
   };
 
+  // Filtrar grupos baseado na busca
+  const filterGroups = (groups: Group[]) => {
+    if (!searchQuery.trim()) return groups;
+    
+    return groups.filter(group =>
+      group.group_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      group.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+
+  // Aplicar filtros aos grupos
+  const filteredAllGroups = filterGroups(allGroups);
+  const filteredMyGroups = filterGroups(myGroups);
+  const filteredPopularGroups = filterGroups(popularGroups);
+
   const GroupCard = ({ group }: { group: Group }) => (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardContent sx={{ flex: 1 }}>
@@ -229,20 +244,32 @@ const GroupsPage: React.FC = () => {
       <Card>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs value={tabValue} onChange={handleTabChange} variant={isMobile ? 'fullWidth' : 'standard'}>
-            <Tab icon={<GroupIcon />} label="Todos" />
-            <Tab icon={<PeopleIcon />} label={`Meus (${myGroups.length})`} />
-            <Tab icon={<TrendingIcon />} label="Populares" />
+            <Tab icon={<GroupIcon />} label={`Todos${searchQuery.trim() ? ` (${filteredAllGroups.length})` : ''}`} />
+            <Tab icon={<PeopleIcon />} label={`Meus (${searchQuery.trim() ? filteredMyGroups.length : myGroups.length})`} />
+            <Tab icon={<TrendingIcon />} label={`Populares${searchQuery.trim() ? ` (${filteredPopularGroups.length})` : ''}`} />
           </Tabs>
         </Box>
 
         <TabPanel value={tabValue} index={0}>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-            {allGroups.map((group) => (
-              <Box key={group.group_id} sx={{ flex: '1 1 350px', minWidth: 300, maxWidth: 400 }}>
-                <GroupCard group={group} />
-              </Box>
-            ))}
-          </Box>
+          {filteredAllGroups.length === 0 && searchQuery.trim() ? (
+            <Box sx={{ textAlign: 'center', py: 4 }}>
+              <SearchIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
+              <Typography variant="h6" color="text.secondary" gutterBottom>
+                Nenhum grupo encontrado
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Não encontramos grupos que correspondam a "{searchQuery}"
+              </Typography>
+            </Box>
+          ) : (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
+              {filteredAllGroups.map((group) => (
+                <Box key={group.group_id} sx={{ flex: '1 1 350px', minWidth: 300, maxWidth: 400 }}>
+                  <GroupCard group={group} />
+                </Box>
+              ))}
+            </Box>
+          )}
         </TabPanel>
 
         <TabPanel value={tabValue} index={1}>
@@ -256,9 +283,19 @@ const GroupsPage: React.FC = () => {
                 Criar Grupo
               </Button>
             </Box>
+          ) : filteredMyGroups.length === 0 && searchQuery.trim() ? (
+            <Box sx={{ textAlign: 'center', py: 4 }}>
+              <SearchIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
+              <Typography variant="h6" color="text.secondary" gutterBottom>
+                Nenhum dos seus grupos corresponde à busca
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Tente uma busca diferente ou explore outros grupos
+              </Typography>
+            </Box>
           ) : (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-              {myGroups.map((group) => (
+              {filteredMyGroups.map((group) => (
                 <Box key={group.group_id} sx={{ flex: '1 1 350px', minWidth: 300, maxWidth: 400 }}>
                   <GroupCard group={group} />
                 </Box>
@@ -268,13 +305,25 @@ const GroupsPage: React.FC = () => {
         </TabPanel>
 
         <TabPanel value={tabValue} index={2}>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
-            {popularGroups.map((group) => (
-              <Box key={group.group_id} sx={{ flex: '1 1 350px', minWidth: 300, maxWidth: 400 }}>
-                <GroupCard group={group} />
-              </Box>
-            ))}
-          </Box>
+          {filteredPopularGroups.length === 0 && searchQuery.trim() ? (
+            <Box sx={{ textAlign: 'center', py: 4 }}>
+              <SearchIcon sx={{ fontSize: 64, color: 'text.secondary', mb: 2 }} />
+              <Typography variant="h6" color="text.secondary" gutterBottom>
+                Nenhum grupo popular encontrado
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                Não encontramos grupos populares que correspondam a "{searchQuery}"
+              </Typography>
+            </Box>
+          ) : (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
+              {filteredPopularGroups.map((group) => (
+                <Box key={group.group_id} sx={{ flex: '1 1 350px', minWidth: 300, maxWidth: 400 }}>
+                  <GroupCard group={group} />
+                </Box>
+              ))}
+            </Box>
+          )}
         </TabPanel>
       </Card>
 

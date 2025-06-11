@@ -113,10 +113,9 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
   const handleSearch = (event: React.FormEvent) => {
     event.preventDefault();
     if (searchValue.trim()) {
-      // TODO: IMPLEMENTAR BUSCA REAL - Navegar para página de resultados
-      // Endpoint sugerido: GET /api/search?q={query}&type=all
-      console.log('Buscar por:', searchValue);
-      // navigate(`/search?q=${encodeURIComponent(searchValue)}`);
+      // Navegar para página de resultados de busca
+      navigate(`/search?q=${encodeURIComponent(searchValue)}`);
+      setSearchValue(''); // Limpar o campo após a busca
     }
   };
 

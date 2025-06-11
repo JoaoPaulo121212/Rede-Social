@@ -16,6 +16,8 @@ import {
   Badge,
   IconButton,
   Paper,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import {
   Search as SearchIcon,
@@ -25,7 +27,8 @@ import {
   MoreVert as MoreVertIcon,
   Circle as CircleIcon,
 } from '@mui/icons-material';
-import { Message, Conversation } from '../types';
+import { Message, Conversation, User } from '../types';
+import NewConversationDialog from '../components/Messages/NewConversationDialog';
 
 const MessagesPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -34,6 +37,8 @@ const MessagesPage: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
+  const [newConversationDialogOpen, setNewConversationDialogOpen] = useState(false);
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' as 'success' | 'error' | 'info' });
   
   // Armazenar mensagens por conversa
   const [conversationMessages, setConversationMessages] = useState<{ [key: number]: Message[] }>({});
@@ -264,6 +269,50 @@ const MessagesPage: React.FC = () => {
     }
   };
 
+  const handleNewConversation = (user: User) => {
+    // Verificar se já existe uma conversa com este usuário
+    const existingConversation = conversations.find(conv => conv.other_user_id === user.user_id);
+    
+    if (existingConversation) {
+      // Selecionar a conversa existente
+      handleConversationSelect(existingConversation);
+      showSnackbar(`Conversa com @${user.username} já existe`, 'info');
+    } else {
+      // Criar nova conversa
+      const newConversation: Conversation = {
+        user1_id: 1, // TODO: BACKEND - ID real do usuário logado
+        user2_id: user.user_id,
+        last_message_at: new Date().toISOString(),
+        message_count: 0,
+        read_count: 0,
+        unread_count: 0,
+        other_user_id: user.user_id,
+        other_username: user.username,
+        other_photo: user.profile_photo,
+        last_message_content: undefined,
+      };
+
+      // Adicionar nova conversa à lista
+      setConversations(prev => [newConversation, ...prev]);
+      
+      // Inicializar mensagens vazias para a nova conversa
+      setConversationMessages(prev => ({
+        ...prev,
+        [user.user_id]: []
+      }));
+
+      // Selecionar a nova conversa
+      setSelectedConversation(newConversation);
+      setMessages([]);
+
+      showSnackbar(`Nova conversa iniciada com @${user.username}`, 'success');
+    }
+  };
+
+  const showSnackbar = (message: string, severity: 'success' | 'error' | 'info') => {
+    setSnackbar({ open: true, message, severity });
+  };
+
   const formatTime = (dateString: string) => {
     return new Date(dateString).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
   };
@@ -412,7 +461,13 @@ const MessagesPage: React.FC = () => {
                 )}
               </List>
 
-              <Button variant="outlined" fullWidth startIcon={<AddIcon />} sx={{ mt: 2 }}>
+              <Button 
+                variant="outlined" 
+                fullWidth 
+                startIcon={<AddIcon />} 
+                sx={{ mt: 2 }}
+                onClick={() => setNewConversationDialogOpen(true)}
+              >
                 Nova Conversa
               </Button>
             </CardContent>
@@ -567,6 +622,29 @@ const MessagesPage: React.FC = () => {
           </Card>
         </Box>
       </Box>
+
+      {/* Diálogo de Nova Conversa */}
+      <NewConversationDialog
+        open={newConversationDialogOpen}
+        onClose={() => setNewConversationDialogOpen(false)}
+        onSelectUser={handleNewConversation}
+      />
+
+      {/* Snackbar para feedbacks */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={() => setSnackbar({ ...snackbar, open: false })} 
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
