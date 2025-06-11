@@ -1,34 +1,17 @@
-# Projeto Rede Social - Modelagem de Banco de Dados
+# 🌐 Rede Social JPProject - Aplicação Web Completa
 
-## Visão Geral do Projeto
+## 📋 Visão Geral do Projeto
 
-Este é um **projeto acadêmico de excelência** que implementa uma rede social completa com foco na **experiência de usuário abertamente conectada** e **interatividade fluida**. O sistema foi desenvolvido seguindo rigorosamente os princípios de engenharia de software moderna, normalização até 3FN, e as melhores práticas de arquitetura web escalável.
+Esta é uma **aplicação web de rede social moderna e completa** desenvolvida seguindo as melhores práticas de engenharia de software. O projeto implementa uma experiência de usuário **abertamente conectada e interativa**, promovendo conexões espontâneas entre usuários, compartilhamento livre de conteúdo e comunicação contínua.
 
-## Características da Rede Social
+### 🎯 Características Principais
 
-### 🌐 Experiência de Usuário Aberta e Conectada
-- **Perfis Totalmente Públicos**: Transparência total, sem barreiras de privacidade
-- **Conexões Espontâneas**: Sistema de amizades/seguimento sem fricções
-- **Compartilhamento Livre**: Conteúdo acessível a todos os usuários
-- **Comunicação Contínua**: Interações fluidas e feedback visual imediato
-- **Interface Responsiva**: Adaptada para desktop, tablet e mobile
-- **Acessibilidade Completa**: Suporte a leitores de tela e navegação por teclado
-
-### 🚀 Funcionalidades Principais
-- **Sistema de Postagens**: Texto e imagem com engajamento em tempo real
-- **Comentários Hierárquicos**: Discussões estruturadas com respostas aninhadas
-- **Sistema de Avaliações**: Likes/dislikes para postagens e comentários
-- **Grupos Temáticos**: Comunidades com administradores e membros ativos
-- **Mensagens Privadas**: Chat com status de entrega (enviada/recebida/lida)
-- **Tags de Interesse**: Até 5 tags por usuário para descoberta de conteúdo
-- **Rede de Conexões**: Sistema bidirecional de relacionamentos
-
-### 📊 Dados dos Usuários
-- **Username único** com validação de comprimento mínimo
-- **E-mail validado** com regex pattern
-- **Data de nascimento** com idade mínima de 13 anos
-- **Foto de perfil** com URL/caminho otimizado
-- **Timestamps** de criação e atualização para auditoria
+- **🔓 Experiência Aberta**: Perfis públicos, conexões sem fricções, conteúdo acessível
+- **⚡ Interface Moderna**: React + TypeScript + Material UI com design responsivo
+- **📱 Mobile-First**: Adaptação completa para desktop, tablet e mobile
+- **♿ Acessibilidade**: Suporte completo a leitores de tela e navegação por teclado
+- **🚀 Performance**: Componentes otimizados, carregamento assíncrono, tipo safety
+- **🔧 Modularidade**: Arquitetura limpa com separação clara de responsabilidades
 
 ## 🏗️ Arquitetura Técnica Robusta
 
