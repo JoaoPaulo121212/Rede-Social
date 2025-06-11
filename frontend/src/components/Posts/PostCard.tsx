@@ -26,6 +26,7 @@ import {
 import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Post } from '../../types';
+import CommentSection from './CommentSection';
 
 interface PostCardProps {
   post: Post;
@@ -38,6 +39,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
   const [userReaction, setUserReaction] = useState<string | null>(null);
   const [likeCount, setLikeCount] = useState(post.like_count || 0);
   const [dislikeCount, setDislikeCount] = useState(post.dislike_count || 0);
+  const [commentCount, setCommentCount] = useState(post.comment_count || 0);
+  const [showComments, setShowComments] = useState(false);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -78,9 +81,11 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
   };
 
   const handleComment = () => {
-    // TODO: IMPLEMENTAR NAVEGAÇÃO PARA PÁGINA DE COMENTÁRIOS
-    // Ou abrir modal de comentários
-    console.log('Comentar no post:', post.post_id);
+    setShowComments(!showComments);
+  };
+
+  const handleCommentCountChange = (count: number) => {
+    setCommentCount(count);
   };
 
   const handleShare = () => {
@@ -197,7 +202,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
             <strong>{dislikeCount}</strong> descurtidas
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            <strong>{post.comment_count || 0}</strong> comentários
+            <strong>{commentCount}</strong> comentários
           </Typography>
           <Box sx={{ flex: 1 }} />
           {post.net_score !== undefined && (
@@ -252,8 +257,8 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
           <Button
             startIcon={<CommentIcon />}
             onClick={handleComment}
-            variant="text"
-            color="inherit"
+            variant={showComments ? 'contained' : 'text'}
+            color={showComments ? 'primary' : 'inherit'}
             size="small"
             sx={{ 
               minWidth: 'auto',
@@ -262,7 +267,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
               textTransform: 'none',
             }}
           >
-            Comentar
+            {showComments ? 'Ocultar' : 'Comentar'}
           </Button>
         </Box>
         
@@ -282,6 +287,13 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
           Compartilhar
         </Button>
       </CardActions>
+
+      {/* Seção de comentários */}
+      <CommentSection
+        postId={post.post_id}
+        isOpen={showComments}
+        onCommentCountChange={handleCommentCountChange}
+      />
 
       {/* Menu de opções */}
       <Menu
