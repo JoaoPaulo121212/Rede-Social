@@ -89,7 +89,6 @@ const ProfilePage: React.FC = () => {
         like_count: 25, // TODO: BACKEND - Contagem real de likes
         dislike_count: 1, // TODO: BACKEND - Contagem real de dislikes
         comment_count: 12, // TODO: BACKEND - Contagem real de comentários
-        net_score: 24, // TODO: BACKEND - Score real calculado
       },
       {
         post_id: 2, // TODO: BACKEND - ID real do post
@@ -103,7 +102,6 @@ const ProfilePage: React.FC = () => {
         like_count: 18, // TODO: BACKEND - Contagem real de likes
         dislike_count: 3, // TODO: BACKEND - Contagem real de dislikes
         comment_count: 8, // TODO: BACKEND - Contagem real de comentários
-        net_score: 15, // TODO: BACKEND - Score real calculado
       },
     ];
 
@@ -243,7 +241,7 @@ const ProfilePage: React.FC = () => {
                 )}
               </Box>
 
-              {/* Estatísticas */}
+              {/* Contadores básicos */}
               <Box sx={{ display: 'flex', gap: 3, mb: 2, justifyContent: isMobile ? 'center' : 'flex-start' }}>
                 <Box sx={{ textAlign: 'center' }}>
                   <Typography variant="h6" fontWeight={600}>
@@ -267,14 +265,6 @@ const ProfilePage: React.FC = () => {
                   </Typography>
                   <Typography variant="caption" color="text.secondary">
                     Seguindo
-                  </Typography>
-                </Box>
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h6" fontWeight={600} color="primary">
-                    {posts.reduce((sum, post) => sum + (post.net_score || 0), 0)} {/* TODO: BACKEND - Score total real calculado */}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    Score Total
                   </Typography>
                 </Box>
               </Box>

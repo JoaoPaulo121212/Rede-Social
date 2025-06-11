@@ -311,7 +311,7 @@ CREATE INDEX CONCURRENTLY IDX_connections_accepted ON connections(user_id, conne
 -- CRIAÇÃO DE VIEWS OTIMIZADAS PARA CONSULTAS FREQUENTES
 -- =====================================================
 
--- View: Postagens com estatísticas em tempo real
+-- View: Postagens com contadores básicos
 CREATE VIEW v_posts_stats AS
 SELECT 
     p.post_id,
@@ -323,9 +323,7 @@ SELECT
     p.updated_at,
     COUNT(DISTINCT c.comment_id) as comment_count,
     COUNT(DISTINCT CASE WHEN r.rating_type = 'like' THEN r.rating_id END) as like_count,
-    COUNT(DISTINCT CASE WHEN r.rating_type = 'dislike' THEN r.rating_id END) as dislike_count,
-    (COUNT(DISTINCT CASE WHEN r.rating_type = 'like' THEN r.rating_id END) - 
-     COUNT(DISTINCT CASE WHEN r.rating_type = 'dislike' THEN r.rating_id END)) as net_score
+    COUNT(DISTINCT CASE WHEN r.rating_type = 'dislike' THEN r.rating_id END) as dislike_count
 FROM posts p
 JOIN users u ON p.user_id = u.user_id
 LEFT JOIN comments c ON p.post_id = c.post_id
@@ -344,7 +342,7 @@ SELECT
 FROM messages
 GROUP BY LEAST(sender_id, receiver_id), GREATEST(sender_id, receiver_id);
 
--- View: Usuários com suas tags e estatísticas
+-- View: Usuários com suas tags e contadores básicos
 CREATE VIEW v_user_profiles AS
 SELECT 
     u.user_id,
@@ -366,7 +364,7 @@ LEFT JOIN comments c ON u.user_id = c.user_id
 LEFT JOIN ratings r ON u.user_id = r.user_id
 GROUP BY u.user_id, u.username, u.email, u.birth_date, u.profile_photo, u.created_at;
 
--- View: Grupos com estatísticas detalhadas
+-- View: Grupos com contadores básicos
 CREATE VIEW v_groups_stats AS
 SELECT 
     g.group_id,
@@ -427,10 +425,10 @@ COMMENT ON TABLE user_tags IS 'Associação usuário-tag com limite de 5';
 COMMENT ON TABLE connections IS 'Conexões sociais bidirecionais';
 
 -- Comentários nas views
-COMMENT ON VIEW v_posts_stats IS 'Estatísticas de postagens em tempo real';
+COMMENT ON VIEW v_posts_stats IS 'Contadores básicos de postagens em tempo real';
 COMMENT ON VIEW v_conversations IS 'Conversas otimizadas com contadores';
-COMMENT ON VIEW v_user_profiles IS 'Perfis completos de usuários com estatísticas';
-COMMENT ON VIEW v_groups_stats IS 'Estatísticas detalhadas de grupos';
+COMMENT ON VIEW v_user_profiles IS 'Perfis completos de usuários com contadores básicos';
+COMMENT ON VIEW v_groups_stats IS 'Contadores básicos de grupos';
 COMMENT ON VIEW v_dashboard_metrics IS 'Métricas principais para dashboard';
 
 -- =====================================================

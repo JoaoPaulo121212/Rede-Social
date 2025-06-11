@@ -110,7 +110,7 @@ const SearchPage: React.FC = () => {
             like_count: 25,
             dislike_count: 1,
             comment_count: 12,
-            net_score: 24,
+    
           },
         ],
         groups: [

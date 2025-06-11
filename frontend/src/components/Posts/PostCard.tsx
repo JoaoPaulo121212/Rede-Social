@@ -192,7 +192,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
         </Typography>
       </CardContent>
 
-      {/* Estatísticas */}
+      {/* Contadores */}
       <Box sx={{ px: 3, py: 1.5, bgcolor: 'grey.50' }}>
         <Box sx={{ display: 'flex', gap: 3, alignItems: 'center' }}>
           <Typography variant="body2" color="text.secondary">
@@ -204,16 +204,6 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
           <Typography variant="body2" color="text.secondary">
             <strong>{commentCount}</strong> comentários
           </Typography>
-          <Box sx={{ flex: 1 }} />
-          {post.net_score !== undefined && (
-            <Typography 
-              variant="body2" 
-              color={post.net_score > 0 ? 'success.main' : post.net_score < 0 ? 'error.main' : 'text.secondary'}
-              fontWeight={600}
-            >
-              Score: {post.net_score > 0 ? '+' : ''}{post.net_score}
-            </Typography>
-          )}
         </Box>
       </Box>
 

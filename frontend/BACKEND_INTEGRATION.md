@@ -29,12 +29,12 @@ Todos os dados fantasmas estão marcados com comentários `// TODO: BACKEND` no 
   - **Endpoint sugerido**: `GET /api/users/:userId/posts?limit=10&offset=0`
   - **Dados**: posts do usuário com estatísticas
 
-- **Estatísticas do Perfil**: (linhas ~280-300)
-  - Seguidores, seguindo, score total
+- **Contadores do Perfil**: (linhas ~280-300)
+  - Seguidores, seguindo, posts
   - **Endpoints sugeridos**: 
     - `GET /api/users/:userId/followers/count`
     - `GET /api/users/:userId/following/count`
-    - `GET /api/users/:userId/score`
+    - `GET /api/users/:userId/posts/count`
 
 ### Simulações a Remover:
 - `setTimeout` para simular carregamento (linha ~112)
@@ -140,7 +140,7 @@ Todos os dados fantasmas estão marcados com comentários `// TODO: BACKEND` no 
 ### Sidebar (`src/components/Layout/Sidebar.tsx`)
 
 #### Dados Mock a Substituir:
-- **Estatísticas da Rede**: `networkStats` (linhas ~45-50)
+- **Contadores da Rede**: `networkStats` (linhas ~45-50)
   - **Endpoint sugerido**: `GET /api/stats/network`
   
 - **Tags em Alta**: `trendingTags` (linhas ~52-58)
@@ -158,7 +158,7 @@ Todos os dados fantasmas estão marcados com comentários `// TODO: BACKEND` no 
 - **Usuários Ativos**: `activeUsers` (linhas ~18-22)
   - **Endpoint sugerido**: `GET /api/users/active?limit=3`
   
-- **Estatísticas**: `networkStats` (linhas ~24-28)
+- **Contadores**: `networkStats` (linhas ~24-28)
   - **Endpoint sugerido**: `GET /api/stats/network`
 
 ---

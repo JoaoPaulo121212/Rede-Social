@@ -69,7 +69,7 @@ const CreatePostDialog: React.FC<CreatePostDialogProps> = ({
         like_count: 0,
         dislike_count: 0,
         comment_count: 0,
-        net_score: 0,
+
       };
 
       onSubmit(newPost);

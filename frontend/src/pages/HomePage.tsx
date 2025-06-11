@@ -43,7 +43,6 @@ const HomePage: React.FC = () => {
         like_count: 15, // TODO: BACKEND - Contagem real de likes
         dislike_count: 0, // TODO: BACKEND - Contagem real de dislikes
         comment_count: 8, // TODO: BACKEND - Contagem real de comentários
-        net_score: 15, // TODO: BACKEND - Score real calculado
       },
       {
         post_id: 2, // TODO: BACKEND - ID real do post
@@ -57,7 +56,6 @@ const HomePage: React.FC = () => {
         like_count: 12, // TODO: BACKEND - Contagem real de likes
         dislike_count: 1, // TODO: BACKEND - Contagem real de dislikes
         comment_count: 5, // TODO: BACKEND - Contagem real de comentários
-        net_score: 11, // TODO: BACKEND - Score real calculado
       },
       {
         post_id: 3, // TODO: BACKEND - ID real do post
@@ -71,7 +69,6 @@ const HomePage: React.FC = () => {
         like_count: 23, // TODO: BACKEND - Contagem real de likes
         dislike_count: 2, // TODO: BACKEND - Contagem real de dislikes
         comment_count: 12, // TODO: BACKEND - Contagem real de comentários
-        net_score: 21, // TODO: BACKEND - Score real calculado
       },
     ];
 

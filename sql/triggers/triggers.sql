@@ -260,20 +260,19 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- =====================================================
--- FUNÇÕES PARA CACHE DE ESTATÍSTICAS OTIMIZADO
+-- FUNÇÕES PARA CACHE DE CONTADORES BÁSICOS
 -- =====================================================
 
--- Tabela para cache de estatísticas de postagens
+-- Tabela para cache de contadores de postagens
 CREATE TABLE IF NOT EXISTS post_stats_cache (
     post_id INTEGER PRIMARY KEY REFERENCES posts(post_id) ON DELETE CASCADE,
     like_count INTEGER DEFAULT 0,
     dislike_count INTEGER DEFAULT 0,
     comment_count INTEGER DEFAULT 0,
-    net_score INTEGER DEFAULT 0,
     last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Função para atualizar cache de estatísticas de postagens
+-- Função para atualizar cache de contadores de postagens
 CREATE OR REPLACE FUNCTION update_post_stats_cache()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -291,7 +290,7 @@ BEGIN
     
     -- Se há uma postagem afetada, atualiza o cache
     IF target_post_id IS NOT NULL THEN
-        -- Calcular estatísticas
+        -- Calcular contadores
         SELECT 
             COUNT(CASE WHEN r.rating_type = 'like' THEN 1 END),
             COUNT(CASE WHEN r.rating_type = 'dislike' THEN 1 END),
@@ -303,13 +302,12 @@ BEGIN
         WHERE p.post_id = target_post_id;
         
         -- Inserir ou atualizar cache
-        INSERT INTO post_stats_cache (post_id, like_count, dislike_count, comment_count, net_score)
-        VALUES (target_post_id, like_cnt, dislike_cnt, comment_cnt, like_cnt - dislike_cnt)
+        INSERT INTO post_stats_cache (post_id, like_count, dislike_count, comment_count)
+        VALUES (target_post_id, like_cnt, dislike_cnt, comment_cnt)
         ON CONFLICT (post_id) DO UPDATE SET
             like_count = EXCLUDED.like_count,
             dislike_count = EXCLUDED.dislike_count,
             comment_count = EXCLUDED.comment_count,
-            net_score = EXCLUDED.net_score,
             last_updated = CURRENT_TIMESTAMP;
     END IF;
     
@@ -325,7 +323,7 @@ BEGIN
     DELETE FROM messages 
     WHERE sent_at < CURRENT_DATE - INTERVAL '2 years';
     
-    -- Limpar cache de estatísticas órfão
+    -- Limpar cache de contadores órfão
     DELETE FROM post_stats_cache 
     WHERE post_id NOT IN (SELECT post_id FROM posts);
     
@@ -454,18 +452,16 @@ CREATE TRIGGER tr_update_post_stats_comments
     EXECUTE FUNCTION update_post_stats_cache();
 
 -- =====================================================
--- INICIALIZAÇÃO DO CACHE DE ESTATÍSTICAS
+-- INICIALIZAÇÃO DO CACHE DE CONTADORES
 -- =====================================================
 
 -- Popular cache inicial para postagens existentes
-INSERT INTO post_stats_cache (post_id, like_count, dislike_count, comment_count, net_score)
+INSERT INTO post_stats_cache (post_id, like_count, dislike_count, comment_count)
 SELECT 
     p.post_id,
     COUNT(CASE WHEN r.rating_type = 'like' THEN 1 END) as like_count,
     COUNT(CASE WHEN r.rating_type = 'dislike' THEN 1 END) as dislike_count,
-    COUNT(DISTINCT c.comment_id) as comment_count,
-    (COUNT(CASE WHEN r.rating_type = 'like' THEN 1 END) - 
-     COUNT(CASE WHEN r.rating_type = 'dislike' THEN 1 END)) as net_score
+    COUNT(DISTINCT c.comment_id) as comment_count
 FROM posts p
 LEFT JOIN ratings r ON p.post_id = r.post_id
 LEFT JOIN comments c ON p.post_id = c.post_id
@@ -561,7 +557,7 @@ BEGIN
     RAISE NOTICE '';
     RAISE NOTICE 'FUNCIONALIDADES ESPECIAIS:';
     RAISE NOTICE '- Controle de spam automático';
-    RAISE NOTICE '- Cache de estatísticas em tempo real';
+    RAISE NOTICE '- Cache de contadores em tempo real';
     RAISE NOTICE '- Conexões bidirecionais automáticas';
     RAISE NOTICE '- Validação de conteúdo avançada';
     RAISE NOTICE '- Sistema de auditoria completo';
@@ -581,9 +577,9 @@ COMMENT ON FUNCTION prevent_self_rating() IS 'Impede usuários de avaliarem pró
 COMMENT ON FUNCTION create_bidirectional_connection() IS 'Cria conexões bidirecionais automaticamente quando aceitas';
 COMMENT ON FUNCTION validate_content() IS 'Valida conteúdo de postagens e comentários';
 COMMENT ON FUNCTION prevent_spam() IS 'Sistema anti-spam com limites por período';
-COMMENT ON FUNCTION update_post_stats_cache() IS 'Mantém cache de estatísticas de postagens atualizado';
+COMMENT ON FUNCTION update_post_stats_cache() IS 'Mantém cache de contadores de postagens atualizado';
 COMMENT ON FUNCTION check_system_integrity() IS 'Verifica integridade geral do sistema';
 COMMENT ON FUNCTION cleanup_old_data() IS 'Limpeza automática de dados antigos';
 
 -- Comentário na tabela de cache
-COMMENT ON TABLE post_stats_cache IS 'Cache otimizado de estatísticas de postagens para alta performance'; 
+COMMENT ON TABLE post_stats_cache IS 'Cache otimizado de contadores de postagens para alta performance'; 

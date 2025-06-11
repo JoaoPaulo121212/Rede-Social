@@ -24,11 +24,10 @@ export interface Post {
   // Dados do usuário (join)
   username?: string;
   profile_photo?: string | null;
-  // Estatísticas (cache)
+  // Contadores básicos
   like_count?: number;
   dislike_count?: number;
   comment_count?: number;
-  net_score?: number;
 }
 
 export interface Comment {
@@ -61,7 +60,7 @@ export interface Group {
   description: string;
   created_at: string;
   updated_at: string;
-  // Estatísticas
+  // Contadores básicos
   member_count?: number;
   admin_count?: number;
   user_role?: 'admin' | 'member';
@@ -98,7 +97,7 @@ export interface Tag {
   tag_id: number;
   tag_name: string;
   created_at: string;
-  // Estatísticas
+  // Contadores básicos
   user_count?: number;
 }
 
@@ -123,13 +122,12 @@ export interface Connection {
   connected_photo?: string | null;
 }
 
-// Tipos para views e estatísticas
+// Tipos para views básicas
 export interface PostStats {
   post_id: number;
   like_count: number;
   dislike_count: number;
   comment_count: number;
-  net_score: number;
   last_updated: string;
 }
 

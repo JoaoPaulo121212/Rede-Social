@@ -19,7 +19,6 @@ const TrendingSidebar: React.FC = () => {
   // Endpoints sugeridos:
   // - GET /api/tags/trending?limit=5 (tags em alta)
   // - GET /api/users/active?limit=3 (usuários ativos)
-  // - GET /api/stats/network (estatísticas da rede)
   
   const trendingTags = [
     { name: 'ReactJS', count: 1247 }, // TODO: BACKEND - Dados reais das tags em alta
@@ -114,28 +113,7 @@ const TrendingSidebar: React.FC = () => {
         </CardContent>
       </Card>
 
-      {/* Estatísticas */}
-      <Card>
-        <CardContent sx={{ pl: 3 }}>
-          <Typography variant="h6" fontWeight={600} gutterBottom>
-            📊 Estatísticas
-          </Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, pl: 1 }}>
-            <Typography variant="body2" color="text.secondary">
-              🌐 1.2k usuários online
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              📝 3.4k postagens hoje
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              👥 156 grupos ativos
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              💬 2.1k mensagens trocadas
-            </Typography>
-          </Box>
-        </CardContent>
-      </Card>
+
     </Box>
   );
 };

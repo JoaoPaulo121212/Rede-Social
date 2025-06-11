@@ -263,13 +263,13 @@ SELECT
     COUNT(DISTINCT p.post_id) as postagens,
     COUNT(DISTINCT c.comment_id) as comentarios,
     COUNT(DISTINCT r.rating_id) as avaliacoes,
-    (COUNT(DISTINCT p.post_id) + COUNT(DISTINCT c.comment_id) + COUNT(DISTINCT r.rating_id)) as score_engajamento
+    (COUNT(DISTINCT p.post_id) + COUNT(DISTINCT c.comment_id) + COUNT(DISTINCT r.rating_id)) as total_atividades
 FROM users u
 LEFT JOIN posts p ON u.user_id = p.user_id
 LEFT JOIN comments c ON u.user_id = c.user_id
 LEFT JOIN ratings r ON u.user_id = r.user_id
 GROUP BY u.user_id, u.username
-ORDER BY score_engajamento DESC
+ORDER BY total_atividades DESC
 LIMIT 10;
 
 -- =====================================================

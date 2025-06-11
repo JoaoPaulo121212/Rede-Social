@@ -255,7 +255,6 @@ class ExploreService {
         like_count: 45,
         dislike_count: 2,
         comment_count: 18,
-        net_score: 43,
       },
       {
         post_id: 11,
@@ -269,7 +268,6 @@ class ExploreService {
         like_count: 38,
         dislike_count: 5,
         comment_count: 22,
-        net_score: 33,
       },
     ];
   }

@@ -249,8 +249,7 @@ SELECT
     p.created_at,
     psc.like_count,
     psc.dislike_count,
-    psc.comment_count,
-    psc.net_score
+    psc.comment_count
 FROM posts p
 JOIN users u ON p.user_id = u.user_id
 LEFT JOIN post_stats_cache psc ON p.post_id = psc.post_id
@@ -287,11 +286,11 @@ SELECT
     LEFT(p.content, 100) as preview,
     psc.like_count,
     psc.comment_count,
-    psc.net_score
+    (psc.like_count - psc.dislike_count) as popularidade
 FROM v_posts_stats p
 JOIN users u ON p.user_id = u.user_id
 LEFT JOIN post_stats_cache psc ON p.post_id = psc.post_id
-ORDER BY psc.net_score DESC, psc.like_count DESC
+ORDER BY (psc.like_count - psc.dislike_count) DESC, psc.like_count DESC
 LIMIT 10;
 ```
 
