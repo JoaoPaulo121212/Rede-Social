@@ -94,7 +94,7 @@ const HomePage: React.FC = () => {
   };
 
   const renderLoadingSkeleton = () => (
-    <Box sx={{ display: 'flex', gap: 3 }}>
+    <Box sx={{ display: 'flex', gap: 1 }}>
       <Box sx={{ flex: '1 1 66%' }}>
         {[1, 2, 3].map((i) => (
           <Card key={i} sx={{ mb: 3, p: 3 }}>
@@ -128,15 +128,15 @@ const HomePage: React.FC = () => {
 
   if (loading) {
     return (
-      <Container maxWidth="lg" sx={{ py: 3 }}>
+      <Container maxWidth="lg" sx={{ py: 1 }}>
         {renderLoadingSkeleton()}
       </Container>
     );
   }
 
   return (
-    <Container maxWidth="lg" sx={{ py: 3 }}>
-      <Box sx={{ display: 'flex', gap: 3 }}>
+    <Container maxWidth="lg" sx={{ py: 1 }}>
+      <Box sx={{ display: 'flex', gap: 1 }}>
         {/* Coluna principal - Timeline */}
         <Box sx={{ flex: '1 1 66%', minWidth: 0 }}>
           {/* Card de boas-vindas */}

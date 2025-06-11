@@ -27,6 +27,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Post } from '../../types';
 import CommentSection from './CommentSection';
+import CommentsModal from './CommentsModal';
 
 interface PostCardProps {
   post: Post;
@@ -41,6 +42,7 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
   const [dislikeCount, setDislikeCount] = useState(post.dislike_count || 0);
   const [commentCount, setCommentCount] = useState(post.comment_count || 0);
   const [showComments, setShowComments] = useState(false);
+  const [showCommentsModal, setShowCommentsModal] = useState(false);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -82,6 +84,10 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
 
   const handleComment = () => {
     setShowComments(!showComments);
+  };
+
+  const handleOpenCommentsModal = () => {
+    setShowCommentsModal(true);
   };
 
   const handleCommentCountChange = (count: number) => {
@@ -201,7 +207,15 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
           <Typography variant="body2" color="text.secondary">
             <strong>{dislikeCount}</strong> descurtidas
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography 
+            variant="body2" 
+            color="text.secondary"
+            sx={{ 
+              cursor: commentCount > 0 ? 'pointer' : 'default',
+              '&:hover': commentCount > 0 ? { color: 'primary.main' } : {},
+            }}
+            onClick={commentCount > 0 ? handleOpenCommentsModal : undefined}
+          >
             <strong>{commentCount}</strong> comentários
           </Typography>
         </Box>
@@ -259,6 +273,24 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
           >
             {showComments ? 'Ocultar' : 'Comentar'}
           </Button>
+          
+          {commentCount > 0 && (
+            <Button
+              variant="text"
+              color="inherit"
+              size="small"
+              onClick={handleOpenCommentsModal}
+              sx={{ 
+                minWidth: 'auto',
+                px: 2,
+                borderRadius: 2,
+                textTransform: 'none',
+                fontSize: '0.875rem',
+              }}
+            >
+              Ver todos ({commentCount})
+            </Button>
+          )}
         </Box>
         
         <Button
@@ -282,6 +314,14 @@ const PostCard: React.FC<PostCardProps> = ({ post, onUpdate, sx }) => {
       <CommentSection
         postId={post.post_id}
         isOpen={showComments}
+        onCommentCountChange={handleCommentCountChange}
+      />
+
+      {/* Modal de comentários expandido */}
+      <CommentsModal
+        open={showCommentsModal}
+        onClose={() => setShowCommentsModal(false)}
+        post={post}
         onCommentCountChange={handleCommentCountChange}
       />
 

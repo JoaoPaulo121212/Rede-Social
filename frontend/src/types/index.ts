@@ -199,7 +199,10 @@ export interface UpdateProfileForm {
   username?: string;
   email?: string;
   birth_date?: string;
-  profile_photo?: string;
+  profile_photo?: string | null;
+  bio?: string;
+  location?: string;
+  website?: string;
 }
 
 // Tipos para API responses

@@ -167,11 +167,11 @@ const theme = createTheme({
     MuiContainer: {
       styleOverrides: {
         root: {
-          paddingLeft: '24px',
-          paddingRight: '24px',
+          paddingLeft: '8px',
+          paddingRight: '8px',
           '@media (max-width: 600px)': {
-            paddingLeft: '16px',
-            paddingRight: '16px',
+            paddingLeft: '8px',
+            paddingRight: '8px',
           },
         },
       },
@@ -197,8 +197,8 @@ function App() {
             sx={{
               flexGrow: 1,
               marginTop: '64px', // Altura da navbar
-              marginLeft: { xs: 0, md: '280px' }, // Largura da sidebar
-              padding: { xs: '16px', sm: '20px', md: '24px' },
+              marginLeft: { xs: 0, md: '280px' }, // Largura da sidebar original
+              padding: { xs: '8px', sm: '12px', md: '16px' }, // Padding bem reduzido para comprimir espaço
               backgroundColor: 'background.default',
               minHeight: 'calc(100vh - 64px)',
               maxWidth: '100%',
