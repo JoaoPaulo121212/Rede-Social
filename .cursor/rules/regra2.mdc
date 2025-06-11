@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Regra 2: Implementação Técnica Robusta, Modular e Coerente com a Arquitetura Web
+
+O projeto da rede social deve ser implementado com uma separação clara entre as camadas de front-end e back-end, respeitando os princípios da arquitetura em camadas e garantindo modularidade, reutilização e manutenibilidade do código. No front-end, o React deve ser estruturado por meio de componentes reutilizáveis, organizados em pastas lógicas (como components, pages, services), com o uso adequado de hooks e controle de estado eficiente. Toda a comunicação com o back-end deve ocorrer por meio de chamadas assíncronas (fetch ou axios), encapsuladas em funções de serviço. No back-end, o Node.js deve seguir boas práticas de organização de rotas, controladores, modelos e middlewares, com separação clara de responsabilidades. O banco de dados MySQL deve ser estruturado com integridade referencial, tipos de dados adequados e consultas eficientes. O projeto deve ser versionado corretamente, com commits frequentes, descritivos e rastreáveis, e conter um `README.md` claro explicando como rodar o projeto. Todas as senhas devem ser armazenadas de forma segura (com hashing) e nenhuma informação sensível deve estar visível no repositório.

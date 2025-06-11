@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Regra 1: Foco na Experiência de Usuário Abertamente Conectada e na Interatividade Fluida
+
+A aplicação web de rede social deve promover uma experiência de uso aberta, acessível e interativa, valorizando conexões espontâneas entre usuários, compartilhamento livre de conteúdo e comunicação contínua. Toda a navegação, desde o cadastro até as interações com postagens e grupos, deve ser fluida, sem fricções ou barreiras de privacidade. A interface deve ser responsiva, clara e adaptada a múltiplos dispositivos e resoluções, mantendo consistência visual e comportamental. O uso de bibliotecas como Material UI (https://mui.com) ou Hero UI (https://www.heroui.com) é altamente recomendado para padronizar componentes e estilização. Todas as interações devem responder com feedback visual imediato, respeitando princípios de acessibilidade, tempo de resposta baixo e clareza de propósito. O sistema deve funcionar de forma transparente para todos os usuários, permitindo o acesso livre a perfis, postagens e discussões mesmo sem conexão direta, reforçando o caráter público e interativo da rede.

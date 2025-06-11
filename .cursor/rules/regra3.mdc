@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Regra 3: Design Visual Consistente, Responsivo e Guiado por Componentes de Interface Modernos
+
+A interface da rede social deve ser desenvolvida com foco em clareza visual, responsividade e consistência entre as páginas e seções do sistema. O uso de bibliotecas de componentes modernas como Material UI (https://mui.com) ou Hero UI (https://www.heroui.com) é altamente recomendado para garantir uma base visual sólida, acessível e padronizada. Todos os elementos da UI – como formulários, botões, cards de postagens, menus de navegação e modais – devem seguir um sistema de design coerente, com espaçamentos equilibrados, tipografia legível, contraste adequado e hierarquia visual clara. O layout deve se adaptar automaticamente a diferentes tamanhos de tela (desktop, tablet e mobile), utilizando princípios de design responsivo e boas práticas de grid. As interações visuais devem ter feedback imediato, com foco em acessibilidade (uso de ARIA, navegação por teclado, etc.). Ícones, cores e estilos devem ser usados com parcimônia e propósito, reforçando a identidade da rede e evitando sobrecarga cognitiva. O resultado final deve oferecer uma experiência visual agradável, limpa e eficiente.

@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Regra 5: Segurança, Autenticação Robusta e Proteção de Dados do Usuário
+
+A segurança da aplicação deve ser tratada como prioridade absoluta durante todo o ciclo de desenvolvimento. O processo de autenticação dos usuários deve ser realizado de forma segura por meio de e-mail e senha, com as senhas obrigatoriamente armazenadas com hashing utilizando algoritmos fortes como bcrypt. Nenhuma senha ou dado sensível deve ser exposto no banco ou em respostas de API. O backend em Node.js deve implementar rotas protegidas com middleware de autenticação e validação de tokens (por exemplo, JWT), garantindo que apenas usuários autenticados possam realizar ações restritas. Todos os dados recebidos de formulários devem passar por validação e sanitização para evitar ataques como SQL Injection, Cross-Site Scripting (XSS) ou exploração de APIs. No front-end, os tokens de autenticação não devem ser expostos em localStorage sem critério, e cookies com flags seguras podem ser utilizados para sessões persistentes, quando necessário. Nenhum dado sensível (como dados de sessão ou dados internos de servidor) deve ser incluído no repositório público. A aplicação deve adotar práticas de segurança tanto na comunicação cliente-servidor quanto na persistência de dados, promovendo confiança e proteção à integridade do sistema e à privacidade dos usuários.

@@ -1,0 +1,8 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+Regra 4: Performance, Escalabilidade e Eficiência como Pilares da Arquitetura
+
+A aplicação deve ser desenvolvida com foco em alta performance e escalabilidade, garantindo resposta rápida às interações dos usuários mesmo em cenários com grande volume de dados e acessos simultâneos. No back-end, as rotas devem ser otimizadas, evitando lógica redundante e reduzindo o tempo de resposta por meio do uso eficiente de middlewares, cache local onde aplicável e consultas SQL bem indexadas. No MySQL, os dados devem estar organizados com integridade referencial, índices estratégicos (especialmente em campos de pesquisa ou filtros), e uso controlado de joins para não comprometer a performance. No front-end, a renderização de componentes em React deve evitar re-renderizações desnecessárias, priorizando o uso de `React.memo`, controle de estados localizados e carregamento assíncrono com `lazy` e `suspense`, quando apropriado. O carregamento inicial do sistema deve ser rápido e leve, com estratégias como code splitting e compressão de assets. Toda a aplicação deve ser monitorada quanto a seu desempenho, e melhorias devem ser baseadas em métricas e evidências (como tempo médio de resposta e número de requisições por segundo).
